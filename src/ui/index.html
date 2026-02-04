@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="./tmp/figma-plugin-ds.css"><!-- Figma Plugin DS Styles -->
+  <link rel="stylesheet" href="./tmp/styles.css"> <!-- Your Styles -->
+
+  
+</head> 
+
+<body class="p-xxsmall">
+   <div id="loading">Select one or more component sets to begin...</div>
+  <div id="error-container"></div>
+  <div id="form">
+    <div>
+      <label for="property-select" class="label">Property to change:</label>
+      <select id="property-select" class="select-menu"></select>
+    </div>
+    <div>
+      <label for="value-select" class="label">Value to rename:</label>
+      <select id="value-select" class="select-menu"></select>
+    </div>
+    <div class="input">
+      <label for="new-value-input" class="label">New value:</label>
+      <input id="new-value-input" type="text" class="input__field" >
+    </div>
+    <div class="button-container"><button id="rename-button" class="button button--primary">Rename</button></div>
+  </div>
+
+  <script src="./tmp/scripts.js"></script>
+
+</body> 

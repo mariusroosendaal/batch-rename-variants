@@ -1,0 +1,12 @@
+{
+  "name": "Batch Rename Variants",
+  "id": "1529393924897156672",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "index.html",
+  "networkAccess": { "allowedDomains": ["none"] },
+  "documentAccess": "dynamic-page",
+  "editorType": [
+    "figma" 
+  ]
+}
