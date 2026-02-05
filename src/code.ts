@@ -87,7 +87,7 @@ function analyzeSelection() {
   }
 
   // Convert the Map and Sets to a plain object with arrays for the UI
-  const propertiesForUI = {};
+  const propertiesForUI: Record<string, string[]> = {};
   for (const [propName, values] of commonProperties.entries()) {
     propertiesForUI[propName] = Array.from(values);
   }
