@@ -1,6 +1,4 @@
-// Set the size of the plugin window
 figma.showUI(__html__, { themeColors: true, width: 240, height: 288 });
-// Set the size of the plugin window
 
 /**
  * Parses a single component set and returns its properties and values.
@@ -34,10 +32,8 @@ function getPropertiesFromSet(
  */
 function analyzeSelection() {
   const selection = figma.currentPage.selection;
-  console.log("Current selection:", selection);
 
   if (selection.length === 0) {
-    console.log("No selection made.");
     figma.ui.postMessage({
       type: "ERROR",
       message: "Please select one or more component sets.",
@@ -50,7 +46,6 @@ function analyzeSelection() {
   ) as ComponentSetNode[];
 
   if (componentSets.length !== selection.length) {
-    console.log("Selection contains non-component set layers.");
     figma.ui.postMessage({
       type: "ERROR",
       message: "All selected layers must be component sets.",
@@ -83,7 +78,6 @@ function analyzeSelection() {
   }
 
   if (commonProperties.size === 0) {
-    console.log("No common properties with shared values found.");
     figma.ui.postMessage({
       type: "ERROR",
       message:
