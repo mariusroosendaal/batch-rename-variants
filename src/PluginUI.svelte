@@ -39,6 +39,7 @@
 
   window.onmessage = createMessageHandler({
     INIT_PROPERTIES: (msg) => {
+      const previousProperty = selectedProperty?.value;
       isLoading = false;
       errorMessage = "";
       propertiesData = msg.data;
@@ -46,14 +47,14 @@
       propertyOptions = propNames.map((p) => ({ label: p, value: p }));
 
       if (propertyOptions.length > 0) {
-        selectedProperty = propertyOptions[0];
+        const preserved = propertyOptions.find((p) => p.value === previousProperty);
+        selectedProperty = preserved || propertyOptions[0];
         valueOptions = propertiesData[selectedProperty.value].map((v) => ({
           label: v,
           value: v,
         }));
-        if (valueOptions.length > 0) {
-          selectedValue = valueOptions[0];
-        }
+        selectedValue = valueOptions[0] || null;
+        newValue = "";
       }
     },
     ERROR: (msg) => {

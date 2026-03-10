@@ -1,4 +1,4 @@
-figma.showUI(__html__, { themeColors: true, width: 240, height: 288 });
+figma.showUI(__html__, { themeColors: true, width: 240, height: 248 });
 
 /**
  * Parses a single component set and returns its properties and values.
@@ -144,8 +144,7 @@ figma.ui.onmessage = (msg) => {
     figma.notify(
       `✅ Renamed ${totalRenameCount} total variants from "${oldValue}" to "${newValue}".`,
     );
-    // We don't close the plugin anymore, so the user can continue working.
-    figma.closePlugin();
+    analyzeSelection();
   }
 };
 
