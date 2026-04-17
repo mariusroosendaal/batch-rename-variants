@@ -47,7 +47,9 @@
       propertyOptions = propNames.map((p) => ({ label: p, value: p }));
 
       if (propertyOptions.length > 0) {
-        const preserved = propertyOptions.find((p) => p.value === previousProperty);
+        const preserved = propertyOptions.find(
+          (p) => p.value === previousProperty,
+        );
         selectedProperty = preserved || propertyOptions[0];
         valueOptions = propertiesData[selectedProperty.value].map((v) => ({
           label: v,
