@@ -28,6 +28,8 @@
     }
   }
 
+  $: renameDisabled = !selectedProperty || !selectedValue || !newValue.trim();
+
   function handleRename() {
     if (!selectedProperty || !selectedValue || !newValue.trim()) return;
     sendToPlugin("RENAME_VALUE", {
@@ -71,7 +73,7 @@
     {#if isLoading}
       <EmptyState message="Select one or more component sets to begin..." />
     {:else if errorMessage}
-      <EmptyState message={errorMessage} />
+      <EmptyState message={errorMessage} role="alert" />
     {:else}
       <div class="form">
         <FieldGroup label="Property to change">
@@ -79,6 +81,7 @@
             menuItems={propertyOptions}
             bind:value={selectedProperty}
             placeholder="Select property"
+            ariaLabel="Property to change"
           />
         </FieldGroup>
 
@@ -87,11 +90,12 @@
             menuItems={valueOptions}
             bind:value={selectedValue}
             placeholder="Select value"
+            ariaLabel="Value to rename"
           />
         </FieldGroup>
 
-        <FieldGroup label="New value">
-          <Input bind:value={newValue} placeholder="Enter new value" />
+        <FieldGroup label="New value" labelFor="new-value-input">
+          <Input bind:value={newValue} placeholder="Enter new value" id="new-value-input" />
         </FieldGroup>
       </div>
     {/if}
@@ -101,7 +105,7 @@
     <Button
       variant="primary"
       on:click={handleRename}
-      disabled={!selectedProperty || !selectedValue || !newValue.trim()}
+      disabled={renameDisabled}
     >
       Rename
     </Button>
