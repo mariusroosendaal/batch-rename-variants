@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Disabled Rename button no longer shows a tooltip — the empty state message already explains what to do
+- Validation error on the error state now correctly marks it as an alert for assistive technology
+- Form inputs have associated labels and accessible names on all dropdowns
+
 ## [1.0.0] - 2026-04-17
 
 ### Changed
