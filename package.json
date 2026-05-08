@@ -1,7 +1,7 @@
 {
   "name": "batch-rename-variants",
   "version": "1.0.1",
-  "description": "Figma plugin: batch rename shared variant property values across multiple component sets.",
+  "description": "Batch rename shared variant property values across multiple component sets.",
   "type": "module",
   "author": "Marius Roosendaal",
   "license": "MIT",
