@@ -110,8 +110,6 @@
           >Rename</Button
         >
       </Tooltip>
-
-      
     {:else}
       <Button
         variant="primary"
