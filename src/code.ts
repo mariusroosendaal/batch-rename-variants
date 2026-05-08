@@ -28,7 +28,6 @@ function getPropertiesFromSet(
 
 /**
  * Analyzes the user's selection to find common properties for renaming.
- * This function will now be called on launch and every time the selection changes.
  */
 function analyzeSelection() {
   const selection = figma.currentPage.selection;
@@ -95,9 +94,6 @@ function analyzeSelection() {
   figma.ui.postMessage({ type: "INIT_PROPERTIES", data: propertiesForUI });
 }
 
-// --- NEW LOGIC ---
-// Add the event listener for selection changes.
-// The callback function (analyzeSelection) will run every time the user's selection changes.
 figma.on("selectionchange", analyzeSelection);
 
 // Listen for messages from the UI to perform actions
@@ -107,6 +103,12 @@ figma.ui.onmessage = (msg) => {
 
     if (!newValue || newValue.trim() === "") {
       figma.notify("New value cannot be empty.", { error: true });
+      return;
+    }
+    if (newValue.length > 100) {
+      figma.notify("New value must be 100 characters or fewer.", {
+        error: true,
+      });
       return;
     }
     if (newValue.includes("=") || newValue.includes(",")) {
@@ -148,7 +150,4 @@ figma.ui.onmessage = (msg) => {
   }
 };
 
-// --- MODIFIED ---
-// Initial analysis of the selection when the plugin is first launched.
-// This ensures the UI is populated correctly at the start.
 analyzeSelection();

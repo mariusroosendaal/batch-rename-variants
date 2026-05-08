@@ -1,5 +1,5 @@
 <script>
-  import { Button, Dropdown, Input } from "figma-ui3-kit-svelte";
+  import { Button, Dropdown, Input, Tooltip } from "figma-ui3-kit-svelte";
   import {
     PluginLayout,
     FieldGroup,
@@ -23,9 +23,7 @@
       label: v,
       value: v,
     }));
-    if (valueOptions.length > 0 && !selectedValue) {
-      selectedValue = valueOptions[0];
-    }
+    selectedValue = valueOptions[0] ?? null;
   }
 
   $: renameDisabled = !selectedProperty || !selectedValue || !newValue.trim();
@@ -95,20 +93,32 @@
         </FieldGroup>
 
         <FieldGroup label="New value" labelFor="new-value-input">
-          <Input bind:value={newValue} placeholder="Enter new value" id="new-value-input" />
+          <Input
+            bind:value={newValue}
+            placeholder="Enter new value"
+            id="new-value-input"
+          />
         </FieldGroup>
       </div>
     {/if}
   </PluginLayout>
 
   <Footer variant="full">
-    <Button
-      variant="primary"
-      on:click={handleRename}
-      disabled={renameDisabled}
-    >
-      Rename
-    </Button>
+    {#if !isLoading && !errorMessage && renameDisabled}
+      <Tooltip label="Enter a new value to rename">
+        <Button variant="primary" on:click={handleRename} disabled
+          >Rename</Button
+        >
+      </Tooltip>
+
+      
+    {:else}
+      <Button
+        variant="primary"
+        on:click={handleRename}
+        disabled={renameDisabled}>Rename</Button
+      >
+    {/if}
   </Footer>
 </div>
 
