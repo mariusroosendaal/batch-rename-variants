@@ -2,8 +2,14 @@
 
 ## [1.0.1] - 2026-05-08
 
+### Fixed
+
+- Switching the Property dropdown now resets the Value dropdown to the first valid option for that property (previously the old value stayed selected, leading to silent zero-rename outcomes)
+
 ### Changed
 
+- Disabled Rename button shows a tooltip explaining why it is disabled when the form is visible
+- New value input is capped at 100 characters
 - Validation error on the error state now correctly marks it as an alert for assistive technology
 - Form inputs have associated labels and accessible names on all dropdowns
 
