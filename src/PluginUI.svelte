@@ -106,7 +106,7 @@
   <Footer variant="full">
     {#if !isLoading && !errorMessage && renameDisabled}
       <Tooltip label="Enter a new value to rename">
-        <Button variant="primary" on:click={handleRename} disabled
+        <Button variant="primary" on:click={handleRename} ariaDisabled
           >Rename</Button
         >
       </Tooltip>
@@ -114,7 +114,7 @@
       <Button
         variant="primary"
         on:click={handleRename}
-        disabled={renameDisabled}>Rename</Button
+        ariaDisabled={renameDisabled}>Rename</Button
       >
     {/if}
   </Footer>
