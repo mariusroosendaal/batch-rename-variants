@@ -1,3 +1,5 @@
+![Batch Rename Variants Cover](assets/thumbnail.png)
+
 # Batch Rename Variants
 
 Rename variant property values across multiple component sets at once.
