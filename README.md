@@ -4,6 +4,10 @@
 
 A Figma plugin for renaming variant property values across multiple component sets at once.
 
+## Install
+
+Get it from the [Figma Community](https://www.figma.com/community/plugin/1529393924897156672/batch-rename-variants)
+
 ## What it does
 
 Select one or more component sets and rename any shared property value. The plugin finds common properties across your selection and lets you batch rename values like `Size=sm` to `Size=small`.
