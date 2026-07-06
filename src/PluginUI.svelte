@@ -18,15 +18,18 @@
   let errorMessage = "";
   let isLoading = true;
 
-  $: if (selectedProperty && propertiesData[selectedProperty.value]) {
-    valueOptions = propertiesData[selectedProperty.value].map((v) => ({
-      label: v,
-      value: v,
-    }));
-    selectedValue = valueOptions[0] ?? null;
-  }
-
   $: renameDisabled = !selectedProperty || !selectedValue || !newValue.trim();
+
+  function handlePropertyChange(event) {
+    const newProperty = event.detail;
+    if (newProperty && propertiesData[newProperty.value]) {
+      valueOptions = propertiesData[newProperty.value].map((v) => ({
+        label: v,
+        value: v,
+      }));
+      selectedValue = valueOptions[0] ?? null;
+    }
+  }
 
   function handleRename() {
     if (!selectedProperty || !selectedValue || !newValue.trim()) return;
@@ -78,6 +81,7 @@
           <Dropdown
             menuItems={propertyOptions}
             bind:value={selectedProperty}
+            on:change={handlePropertyChange}
             placeholder="Select property"
             ariaLabel="Property to change"
           />

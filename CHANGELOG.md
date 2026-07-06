@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.2] - 2026-07-06
+
+### Fixed
+
+- The Value dropdown always snapped back to its first option after picking any other item, making it impossible to select a value other than the first — caused by a reactive statement that got entangled with the dropdown's two-way binding
+
 ## [1.0.1] - 2026-05-08
 
 ### Fixed

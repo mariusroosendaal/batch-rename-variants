@@ -1,6 +1,6 @@
 {
   "name": "batch-rename-variants",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Batch rename shared variant property values across multiple component sets.",
   "type": "module",
   "author": "Marius Roosendaal",
