@@ -4,7 +4,7 @@ Batch Rename Variants renames one variant value in every component set you selec
 
 ## Rename a value
 
-![](batch-rename-form.png)
+![](batch-rename-form.svg)
 
 Select one or more component sets, then run the plugin. The form follows the selection: select other sets and the lists update.
 
