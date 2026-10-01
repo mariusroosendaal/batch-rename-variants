@@ -20,7 +20,7 @@ Select one or more component sets and rename any shared property value. The plug
 4. Enter the new value
 5. Click rename
 
-For each screen and what its controls do, see the [user guide](https://figma-plugins.notion.site/Batch-Rename-Variants-3ecf29c09c9d81c59f7fe9e87def9b30). <!-- dev -->
+For each screen and what its controls do, see the [user guide](https://figma-plugins.notion.site/Batch-Rename-Variants-3ecf29c09c9d81c59f7fe9e87def9b30).
 
 ## Requirements
 
