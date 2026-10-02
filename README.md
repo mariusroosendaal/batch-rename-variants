@@ -2,7 +2,7 @@
 
 # Batch Rename Variants
 
-A Figma plugin for renaming variant property values across multiple component sets at once.
+Rename variant property values across many component sets at once.
 
 ## Install
 
