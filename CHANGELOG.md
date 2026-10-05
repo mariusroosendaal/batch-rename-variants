@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- The rename ends with a count of the renamed variants and the undo shortcut, without the emoji. When no selected variant has the value, a regular notification says so, where it used to report 0 as a success
+- **New value** shows what's wrong with a value (too long, or with "=" or ",") under the field, and **Rename** stays disabled until it's fixed, where a red notification used to follow the click
+
 ## [1.0.2] - 2026-07-06
 
 ### Fixed

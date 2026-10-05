@@ -18,7 +18,16 @@
   let errorMessage = "";
   let isLoading = true;
 
-  $: renameDisabled = !selectedProperty || !selectedValue || !newValue.trim();
+  // As code.ts checks it: variant names are "property=value" pairs joined
+  // by commas, so a value can't hold either.
+  $: newValueError =
+    newValue.length > 100
+      ? "Shorten the new value to 100 characters or fewer."
+      : newValue.includes("=") || newValue.includes(",")
+        ? 'Remove "=" and "," from the new value: variant names use them.'
+        : "";
+  $: renameDisabled =
+    !selectedProperty || !selectedValue || !newValue.trim() || !!newValueError;
 
   function handlePropertyChange(event) {
     const newProperty = event.detail;
@@ -101,6 +110,8 @@
             bind:value={newValue}
             placeholder="Enter new value"
             id="new-value-input"
+            invalid={!!newValueError}
+            errorMessage={newValueError}
           />
         </FieldGroup>
       </div>
@@ -109,7 +120,7 @@
 
   <Footer variant="full">
     {#if !isLoading && !errorMessage && renameDisabled}
-      <Tooltip label="Enter a new value to rename">
+      <Tooltip label={newValueError || "Enter a new value to rename"}>
         <Button
           variant="primary"
           on:click={handleRename}

@@ -1,3 +1,9 @@
+import {
+  showError,
+  showNotice,
+  showSuccess,
+} from "figma-plugin-utilities/lib/figma-helpers";
+import { plural, UNDO } from "figma-plugin-utilities/lib/format";
 figma.showUI(__html__, { themeColors: true, width: 240, height: 248 });
 
 /**
@@ -94,6 +100,21 @@ function analyzeSelection() {
   figma.ui.postMessage({ type: "INIT_PROPERTIES", data: propertiesForUI });
 }
 
+// Why a new variant value can't be used, or null when it can. Variant names
+// are "property=value" pairs joined by commas, so a value can't hold either.
+const newValueError = (value: unknown): string | null => {
+  if (typeof value !== "string" || value.trim() === "") {
+    return "Enter a new value.";
+  }
+  if (value.length > 100) {
+    return "Shorten the new value to 100 characters or fewer.";
+  }
+  if (value.includes("=") || value.includes(",")) {
+    return 'Remove "=" and "," from the new value: variant names use them.';
+  }
+  return null;
+};
+
 figma.on("selectionchange", analyzeSelection);
 
 // Listen for messages from the UI to perform actions
@@ -101,20 +122,10 @@ figma.ui.onmessage = (msg) => {
   if (msg.type === "RENAME_VALUE") {
     const { property, oldValue, newValue } = msg;
 
-    if (!newValue || newValue.trim() === "") {
-      figma.notify("New value cannot be empty.", { error: true });
-      return;
-    }
-    if (newValue.length > 100) {
-      figma.notify("New value must be 100 characters or fewer.", {
-        error: true,
-      });
-      return;
-    }
-    if (newValue.includes("=") || newValue.includes(",")) {
-      figma.notify('New value cannot contain "=" or "," characters.', {
-        error: true,
-      });
+    // The UI checks the new value first; this guards the file.
+    const invalid = newValueError(newValue);
+    if (invalid) {
+      showError(invalid);
       return;
     }
 
@@ -143,9 +154,15 @@ figma.ui.onmessage = (msg) => {
       }
     }
 
-    figma.notify(
-      `✅ Renamed ${totalRenameCount} total variants from "${oldValue}" to "${newValue}".`,
-    );
+    if (totalRenameCount === 0) {
+      showNotice(
+        `No selected variant has ${property}=${oldValue}. Select the component sets again.`,
+      );
+    } else {
+      showSuccess(
+        `Renamed ${plural(totalRenameCount, "variant")} from "${oldValue}" to "${newValue}". ${UNDO}`,
+      );
+    }
     analyzeSelection();
   }
 };
