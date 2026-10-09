@@ -15,3 +15,5 @@ Select one or more component sets, then run the plugin. The lists follow your se
 Click **Rename** to rename the value in every variant that has it. Press Ctrl/Cmd+Z to undo.
 
 If you see a message instead of the form, select only component sets, not their variants. If the sets share no value, select sets that have one in common.
+
+If the new value would give a set two identical variants, that set is skipped and the message names it. Choose a different new value.
