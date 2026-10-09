@@ -41,7 +41,7 @@ function analyzeSelection() {
   if (selection.length === 0) {
     figma.ui.postMessage({
       type: "ERROR",
-      message: "Please select one or more component sets.",
+      message: "Select one or more component sets.",
     });
     return;
   }
@@ -135,8 +135,15 @@ figma.ui.onmessage = (msg) => {
       (node) => node.type === "COMPONENT_SET",
     ) as ComponentSetNode[];
     let totalRenameCount = 0;
+    const collidingSets: string[] = [];
+
+    // Variants with the same properties in any order are the same combination
+    const combo = (parts: string[]) => [...parts].sort().join(",");
 
     for (const set of componentSets) {
+      const renames: Array<{ variant: ComponentNode; parts: string[] }> = [];
+      const combos = new Map<string, number>();
+
       for (const variant of set.children) {
         if (variant.type !== "COMPONENT") continue;
 
@@ -148,13 +155,37 @@ figma.ui.onmessage = (msg) => {
         if (targetPropIndex !== -1) {
           // Reconstruct the name with the new value
           currentProps[targetPropIndex] = `${property}=${newValue}`;
-          variant.name = currentProps.join(", ");
-          totalRenameCount++;
+          renames.push({ variant, parts: currentProps });
         }
+        const key = combo(currentProps);
+        combos.set(key, (combos.get(key) ?? 0) + 1);
+      }
+
+      // Renaming must not give two variants the same property combination
+      if (
+        renames.length > 0 &&
+        [...combos.values()].some((count) => count > 1)
+      ) {
+        collidingSets.push(set.name);
+        continue;
+      }
+
+      for (const { variant, parts } of renames) {
+        variant.name = parts.join(", ");
+        totalRenameCount++;
       }
     }
 
-    if (totalRenameCount === 0) {
+    if (collidingSets.length > 0) {
+      const names = collidingSets.map((n) => `"${n}"`).join(", ");
+      const renamed =
+        totalRenameCount > 0
+          ? ` Renamed ${plural(totalRenameCount, "variant")} in the other sets.`
+          : "";
+      showError(
+        `Couldn't rename in ${plural(collidingSets.length, "component set")}: ${names} already ${collidingSets.length === 1 ? "has" : "have"} a variant with ${property}=${newValue}. Choose a different new value.${renamed}`,
+      );
+    } else if (totalRenameCount === 0) {
       showNotice(
         `No selected variant has ${property}=${oldValue}. Select the component sets again.`,
       );

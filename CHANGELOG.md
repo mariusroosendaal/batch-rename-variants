@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Renaming a value to one that another variant in the same component set already has skips that set and names it in a red notification, instead of creating variants with identical properties
+
 ### Changed
 
 - The rename ends with a count of the renamed variants and the undo shortcut, without the emoji. When no selected variant has the value, a regular notification says so, where it used to report 0 as a success
